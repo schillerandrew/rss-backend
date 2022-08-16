@@ -18,11 +18,13 @@
   },
   "homepage": "https://github.com/Code-Cellos/rss-backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "jest": "^28.1.3",
     "mongo": "^0.1.0",
     "mongoose": "^6.5.2",
-    "react": "^18.2.0"
+    "react": "^18.2.0",
+    "rss-parser": "^3.12.0"
   }
 }
