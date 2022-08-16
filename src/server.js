@@ -5,12 +5,15 @@ const express = require('express');
 const app = express();
 
 require('dotenv').config();
+let Parser = require('rss-parser');
+let parser = new Parser();
+const cors = require('cors');
 
 let PORT = process.env.PORT || 3002;
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DB);
-const userData = require('./userModel');
+const userObject = require('./userModel');
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -42,12 +45,41 @@ app.use(express.urlencoded({ extended: true }));
 const createUserData = async (req, res, next) => {
   try {
     let user = req.body;
-    let response = await userData.create(user);
+    let response = await userObject.create(user);
     res.status(200).send(response);
   } catch (e) {
     console.log(e.messsage);
   }
 };
+
+// const addFeed = async (req, res, next) => {
+//   try {
+//     let feed = req.body;
+//     let user = await this.findOne( { where: { }})
+//   } catch (e) {
+//     console.log(e.messsage);
+//   }
+// }
+
+const parseFeed = async () => {
+  let feed = await parser.parseURL('https://www.reddit.com/r/MurderedByWords/.rss');
+  console.log('TITLE', feed.title);
+
+  feed.items.forEach(item => {
+    console.log(item.title, item.link);
+  });
+};
+
+parseFeed();
+
+const addFeed = async (username, feed) => {
+  try {
+    let account = await userData.fineOne(username);
+    account.feedsArray.push(feed);
+  } catch (e) {
+    console.log(e.message);
+  }
+}
 
 app.post('/userData', createUserData);
 
