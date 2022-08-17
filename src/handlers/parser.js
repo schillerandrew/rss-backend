@@ -2,7 +2,7 @@
 
 let Parser = require('rss-parser');
 let parser = new Parser();
-const UserObject = require('./userModel');
+const UserObject = require('../models/userModel');
 
 const parseFeed = async () => {
   let feed = await parser.parseURL('https://www.reddit.com/r/news/.rss');
