@@ -52,36 +52,24 @@ const createUserData = async (req, res, next) => {
   }
 };
 
-// const addFeed = async (req, res, next) => {
-//   try {
-//     let feed = req.body;
-//     let user = await this.findOne( { where: { }})
-//   } catch (e) {
-//     console.log(e.messsage);
-//   }
-// }
+const getFeeds = async (req, res, next) => {
+  try {
+    let feeds = await UserObject.find({});
+    res.status(200).send(feeds);
+  } catch (e) {
+    console.log(e.messsage);
+  }
+};
 
 const parseFeed = async () => {
   let feed = await parser.parseURL('https://www.reddit.com/r/news/.rss');
-  // console.log('TITLE', feed.title);
-  // console.log('FEED', feed);
-  // feed.items.forEach(item => {
-  //   console.log(item.title, item.link);
-  // });
-
   return feed;
 };
 
 const addFeed = async (username) => {
-  // let { Username } = username;
   try {
     let account = await UserObject.findOne( { Username: username });
-    console.log('ACCOUNT', account);
     let newFeed = await parseFeed();
-    // console.log('FEED', feed);
-    // account.feedsArray.push(feed);
-    // console.log('FEED', newFeed);
-    console.log('ID', account._id);
     await UserObject.findByIdAndUpdate(account._id, {$push: {feedsArray: newFeed}});
   } catch (e) {
     console.log(e.message);
@@ -91,6 +79,7 @@ const addFeed = async (username) => {
 addFeed('andrew');
 
 app.post('/userData', createUserData);
+app.get('/feeds', getFeeds);
 
 // Catchalls
 app.use('*', notFound);
