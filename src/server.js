@@ -3,6 +3,7 @@
 // 3rd Party Resources
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -20,19 +21,15 @@ db.once('open', function () {
 
 // Handlers
 const createUserData = require('./handlers/createUserData');
-const addFeed = require('./handlers/parser');
-
-// Esoteric Resources
-const errorHandler = require('./errorHandlers/500.js');
-const notFound = require('./errorHandlers/404.js');
+const addFeed = require('./handlers/addFeed');
 const getFeeds = require('./handlers/getFeeds');
 
-// REQUIRE ROUTES
-// const authRouter = require('./routes/auth.js');
-// const alphaRoutes = require('./routes/alpha.js')
-// const bravoRoutes = require('./routes/bravo.js')
+// Error Handlers
+const errorHandler = require('./errorHandlers/500.js');
+const notFound = require('./errorHandlers/404.js');
 
 app.use(express.json());
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true }));
 
