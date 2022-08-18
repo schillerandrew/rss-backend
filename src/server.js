@@ -22,8 +22,7 @@ db.once('open', function () {
 // Handlers
 const createUserData = require('./handlers/createUserData');
 const addFeed = require('./handlers/addFeed');
-const getFeeds = require('./handlers/getFeeds');
-
+const { getFeeds, setUrl } = require('./handlers/getFeeds');
 // Error Handlers
 const errorHandler = require('./errorHandlers/500.js');
 const notFound = require('./errorHandlers/404.js');
@@ -34,12 +33,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-// app.use(authRouter);
-
-addFeed('andrew');
+app.get('/feeds', setUrl);
+app.get('/feeds', getFeeds);
 
 app.post('/userData', createUserData);
-app.get('/feeds', getFeeds);
 
 // Catchalls
 app.use('*', notFound);

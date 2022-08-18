@@ -1,19 +1,33 @@
 'use strict';
 
+const { response } = require('express');
 let Parser = require('rss-parser');
 let parser = new Parser();
-const UserObject = require('../models/userModel');
 
-const getFeeds = async (req, res, next) => {
+let url = [];
+const setUrl = (req, res, next) => {
   try {
-    let results = await UserObject.find({});
-    // console.log(results);
-    results = results[0].feedsArray[0]; // grabs the first feed of the first user
-    let parsedResults = await parser.parseURL(results); // parses RSS feed, from XML to JSON
-    res.status(200).send(parsedResults.items); // drills down to items property, so the output is an array of article objects
+    let receivedUrl = req.body;
+    url.push(receivedUrl);
+
+    getFeeds(req, res, next);
   } catch (e) {
-    console.log(e.message);
+    console.log(e.messsage);
   }
 };
 
-module.exports = getFeeds;
+const getFeeds = async (req, res, next) => {
+  let { url } = req.query;
+  console.log('URL ---->>>>', url);
+  try {
+    // console.log('URL ---->>>>', url[0].rssFeedUrl);
+
+    let response = await parser.parseURL(url);
+    console.log('FEEEEDS', response.items);
+    res.status(200).send(response.items);
+  } catch (e) {
+    console.log(e.messsage);
+  }
+};
+
+module.exports = { getFeeds, setUrl };
