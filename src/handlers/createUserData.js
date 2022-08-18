@@ -6,7 +6,7 @@ const createUserData = async (req, res, next) => {
     let response = await UserObject.create(user);
     res.status(200).send(response);
   } catch (e) {
-    console.log(e.messsage);
+    console.log(e.message);
   }
 };
 
