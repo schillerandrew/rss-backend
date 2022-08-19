@@ -22,7 +22,7 @@ db.once('open', function () {
 // Handlers
 const createUserData = require('./handlers/createUserData');
 const addFeed = require('./handlers/addFeed');
-const { getFeeds, setUrl } = require('./handlers/getFeeds');
+const getFeeds = require('./handlers/getFeeds');
 // Error Handlers
 const errorHandler = require('./errorHandlers/500.js');
 const notFound = require('./errorHandlers/404.js');
@@ -37,7 +37,6 @@ app.get('/', (req, res) => {
   res.status(200).send('Looks good!');
 });
 
-app.get('/feeds', setUrl);
 app.get('/feeds', getFeeds);
 
 app.post('/userData', createUserData);
@@ -55,5 +54,5 @@ module.exports = {
     app.listen(PORT, () => {
       console.log(`Server is up on ${PORT}`);
     });
-  }
+  },
 };
