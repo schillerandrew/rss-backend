@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --verbose --coverage",
     "start": "node server.js"
   },
   "repository": {
@@ -29,6 +29,7 @@
     "mongoose": "^6.5.2",
     "react": "^18.2.0",
     "rss-parser": "^3.12.0",
+    "sinon": "^14.0.0",
     "supertest": "^6.2.4"
   }
 }
