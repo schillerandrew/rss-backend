@@ -33,6 +33,10 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
+app.get('/', (req, res) => {
+  res.status(200).send('Looks good!');
+});
+
 app.get('/feeds', setUrl);
 app.get('/feeds', getFeeds);
 
