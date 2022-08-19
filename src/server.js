@@ -33,9 +33,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-// app.get('/', (req, res) => {
-//   res.status(200).send('Looks good!');
-// });
+app.get('/', (req, res) => {
+  res.status(200).send('Looks good!');
+});
 
 app.get('/feeds', getFeeds);
 
@@ -48,9 +48,9 @@ app.use(errorHandler);
 module.exports = {
   server: app,
   start: () => {
-    if (!PORT) {
-      throw new error('Missing PORT');
-    }
+    // if (!PORT) {
+    //   throw new error('Missing PORT');
+    // }
     app.listen(PORT, () => {
       console.log(`Server is up on ${PORT}`);
     });
