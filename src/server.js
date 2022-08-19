@@ -21,7 +21,7 @@ db.once('open', function () {
 
 // Handlers
 const createUserData = require('./handlers/createUserData');
-const addFeed = require('./handlers/addFeed');
+// const addFeed = require('./handlers/addFeed');
 const getFeeds = require('./handlers/getFeeds');
 // Error Handlers
 const errorHandler = require('./errorHandlers/500.js');
@@ -33,9 +33,9 @@ app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get('/', (req, res) => {
-  res.status(200).send('Looks good!');
-});
+// app.get('/', (req, res) => {
+//   res.status(200).send('Looks good!');
+// });
 
 app.get('/feeds', getFeeds);
 
