@@ -8,7 +8,7 @@
   "main": "server.js",
   "scripts": {
     "test": "jest --verbose --coverage",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
